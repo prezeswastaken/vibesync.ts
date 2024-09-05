@@ -6,7 +6,7 @@ useHead({ title: "Vibe Sync" });
     <UContainer>
         <UCard class="mt-10">
             <div class="flex justify-between">
-                <h1>Welcome to Nuxt UI Starter</h1>
+                <h1>Welcome to VibeSync</h1>
                 <ColorScheme
                     ><USelect
                         v-model="$colorMode.preference"

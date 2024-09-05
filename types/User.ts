@@ -24,6 +24,13 @@ export type LoginResponse = {
 	user: UserType;
 };
 
+export type RegisterResponse = {
+	access_token: string;
+	token_type: string;
+	expires_in: number;
+	user: UserType;
+};
+
 export type RefreshResponse = {
 	access_token: string;
 	token_type: string;
