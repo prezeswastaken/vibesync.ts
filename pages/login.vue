@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useUserStore } from "~/store/userStore";
-import type { LoginResponse } from "~/types/User";
+
+definePageMeta({
+    middleware: "guest",
+});
 
 const userStore = useUserStore();
 
@@ -50,7 +53,17 @@ async function handleSubmit() {
                     icon="i-heroicons-key"
                 />
             </UFormGroup>
-            <UButton type="submit" class="w-min">Login</UButton>
+            <div class="flex justify-between">
+                <ULink
+                    class="text-sm"
+                    to="/register"
+                    active-class="text-primary"
+                    inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                >
+                    Don't have an account yet?
+                </ULink>
+                <UButton type="submit" class="w-min">Login</UButton>
+            </div>
         </form>
     </UCard>
 </template>

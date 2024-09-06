@@ -58,6 +58,7 @@ export const useUserStore = defineStore(
 			isLoggedIn,
 			setAccessToken,
 			setUser,
+			logout,
 		};
 	},
 
