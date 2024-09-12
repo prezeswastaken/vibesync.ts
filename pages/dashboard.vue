@@ -18,7 +18,7 @@ const userName = ref(userStore.user?.name);
 
 <template>
     <div>
-        <div>Hello {{ userName }}</div>
+        <div class="mb-5">Hello {{ userName }}</div>
         <ListingList :listings="listingStore.listings" />
     </div>
 </template>

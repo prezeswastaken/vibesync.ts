@@ -16,3 +16,12 @@ export type Listing = {
 	tags: string[];
 	links: Link[];
 };
+
+export type CreateListingRequest = {
+	title: string;
+	body: string;
+	is_sale_offer: boolean;
+	price: string | number | undefined;
+	tag_ids: number[];
+	genre_ids: number[];
+};

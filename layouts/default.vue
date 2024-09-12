@@ -5,7 +5,7 @@ useHead({ title: "Vibe Sync" });
 <template>
     <UContainer>
         <TopBar />
-        <UCard class="mt-10">
+        <UCard class="mt-20">
             <div class="flex justify-between">
                 <h1>Welcome to VibeSync!</h1>
                 <ColorScheme

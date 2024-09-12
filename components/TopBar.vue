@@ -5,6 +5,12 @@ const route = useRoute();
 
 const userStore = useUserStore();
 
+const showModal = ref(false);
+
+function toggleShowModal() {
+    showModal.value = !showModal.value;
+}
+
 const authLinks = ref([
     {
         label: "Home",
@@ -44,11 +50,28 @@ const guestLinks = ref([
 </script>
 
 <template>
-    <div class="flex justify-around">
+    <div
+        class="flex fixed top-0 left-0 justify-around w-full bg-neutral-50 dark:bg-neutral-900"
+    >
         <div class="w-full"></div>
-        <UHorizontalNavigation
-            :links="userStore.isLoggedIn ? authLinks : guestLinks"
-            class="flex justify-end border-b border-gray-200 dark:border-gray-800 w-fit"
-        />
+        <div
+            class="flex justify-end border-b border-gray-200 dark:border-gray-800"
+        >
+            <UButton
+                label="CREATE LISTING"
+                class="m-3"
+                @click="toggleShowModal"
+            />
+            <UHorizontalNavigation
+                :links="userStore.isLoggedIn ? authLinks : guestLinks"
+            />
+        </div>
+        <UModal v-model="showModal" title="Create Listing" prevent-close
+            ><UCard>
+                <template #header> <h1>Create listing</h1> </template>
+                <CreateListingForm @close="() => (showModal = false)" />
+                <template #footer> </template>
+            </UCard>
+        </UModal>
     </div>
 </template>
