@@ -65,7 +65,7 @@ watchEffect(() => {
 </script>
 
 <template>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4" v-auto-animate>
         <UFormGroup
             :label="$t('title')"
             required
@@ -134,7 +134,7 @@ watchEffect(() => {
                 color="white"
             />
             <UButton
-                :label="$t('createListing')"
+                :label="$t('proceed')"
                 class="self-end w-fit"
                 @click="handleSubmit"
             />

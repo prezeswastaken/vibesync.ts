@@ -27,7 +27,7 @@ const profileImage = computed(() => {
     return profileImage;
 });
 
-const authLinks = ref([
+const authLinks = computed(() => [
     {
         label: t("home"),
         icon: "i-heroicons-home",

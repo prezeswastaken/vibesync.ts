@@ -44,7 +44,7 @@ async function handleSubmit() {
 <template>
     <UCard
         ><p class="text-lg font-semibold">{{ $t("links") }}</p>
-        <div class="flex flex-col">
+        <div class="flex flex-col" v-auto-animate>
             <NuxtLink
                 v-for="link in listingStore.currentListing?.links ?? []"
                 :key="link.id"

@@ -5,6 +5,7 @@ export default defineNuxtConfig({
 		"@pinia/nuxt",
 		"@pinia-plugin-persistedstate/nuxt",
 		"@nuxtjs/i18n",
+		"@formkit/auto-animate/nuxt",
 	],
 	ssr: false,
 	compatibilityDate: "2024-09-04",

@@ -8,6 +8,7 @@ const listingStore = useListingStore();
 if (Number.isNaN(Number(id))) {
     throw new Error("Invalid ID");
 }
+listingStore.currentListing = null;
 listingStore.fetchListingByID(Number(id));
 </script>
 
