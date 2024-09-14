@@ -34,6 +34,10 @@ export default defineI18nConfig(() => ({
 			loginWithSpotify: "Login with Spotify",
 			links: "Links",
 			addLink: "Add link",
+			discardChanges: "Discard changes",
+			saveAndPublish: "Save and publish",
+			saveWithoutPublishing: "Zapisz zmiany bez publikacji",
+			saveChanges: "Save changes",
 		},
 		pl: {
 			welcome: "Witaj w VibeSync!",
@@ -68,6 +72,10 @@ export default defineI18nConfig(() => ({
 			or: "ALBO",
 			links: "Linki",
 			addLink: "Dodaj link",
+			discardChanges: "Odrzuć zmiany",
+			saveAndPublish: "Zapisz zmiany i opublikuj",
+			saveWithoutPublishing: "Zapisz zmiany bez publikacji",
+			saveChanges: "Zapisz zmiany",
 		},
 	},
 }));

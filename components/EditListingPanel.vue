@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import type { EditListingRequest, Listing } from "~/types/Listing";
-
-const listingStore = useListingStore();
-
-console.log("LISTING", listingStore.currentListing);
-
 import type { Genre } from "~/types/Genre";
 import type { Tag } from "~/types/Tag";
 import type { CreateListingRequest } from "~/types/Listing";
 import { useTagStore } from "~/store/tagStore";
 import { useGenreStore } from "~/store/genreStore";
 import { useListingStore } from "~/store/listingStore";
+import type { EditListingRequest, Listing } from "~/types/Listing";
 
 const { t } = useI18n();
+
+const listingStore = useListingStore();
+
+const submitLabel = computed(() => {
+    return listingStore.currentListing?.is_published
+        ? t("saveChanges")
+        : t("saveAndPublish");
+});
+
+console.log("LISTING", listingStore.currentListing);
 
 const form = ref<EditListingRequest>({
     title: listingStore.currentListing?.title ?? "",
@@ -35,10 +40,10 @@ type ErrorMessages = {
 
 const errorMessages = ref<ErrorMessages | null>(null);
 
-async function handleSubmit() {
+async function handleSubmit(publish: boolean) {
     console.log("FORM", form.value);
     errorMessages.value = null;
-    const { error } = await useApiFetch(
+    const { data, error } = await useApiFetch<Listing>(
         `/api/listings/${listingStore.currentListing?.id}`,
         {
             method: "PUT",
@@ -49,6 +54,11 @@ async function handleSubmit() {
         console.log("TITLE ERROR", error.value.data.errors.title);
         errorMessages.value = error.value.data.errors;
     } else {
+        if (publish && data.value?.is_published === false) {
+            await useApiFetch(`/api/listings/${data.value.id}/publish`, {
+                method: "POST",
+            });
+        }
         navigateTo("/dashboard");
     }
 }
@@ -131,24 +141,30 @@ watchEffect(() => {
                 option-attribute="name"
             />
         </UFormGroup>
+        <AddLinksPanel />
         <UDivider />
         <div class="flex justify-between w-full">
             <UButton
-                :label="$t('close')"
+                :label="$t('discardChanges')"
                 @click="
                     () => {
-                        $emit('close');
+                        navigateTo('/dashboard');
                     }
                 "
                 color="white"
             />
             <UButton
-                :label="$t('createListing')"
+                v-if="!listingStore.currentListing?.is_published"
+                :label="$t('saveWithoutPublishing')"
+                color="white"
+                @click="handleSubmit(false)"
+            />
+            <UButton
+                :label="submitLabel"
                 class="self-end w-fit"
-                @click="handleSubmit"
+                @click="handleSubmit(true)"
             />
         </div>
-        <AddLinksPanel />
     </div>
 </template>
 

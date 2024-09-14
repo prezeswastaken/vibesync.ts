@@ -46,7 +46,7 @@ defineProps<{
                 target="_blank"
                 class="text-blue-500"
             >
-                {{ link.title }}
+                {{ link.url }}
             </NuxtLink>
         </div>
     </UCard>
