@@ -1,21 +1,27 @@
 <script setup lang="ts">
+import type { EditListingRequest, Listing } from "~/types/Listing";
+
+const listingStore = useListingStore();
+
+console.log("LISTING", listingStore.currentListing);
+
 import type { Genre } from "~/types/Genre";
 import type { Tag } from "~/types/Tag";
-import type { CreateListingRequest, Listing } from "~/types/Listing";
+import type { CreateListingRequest } from "~/types/Listing";
 import { useTagStore } from "~/store/tagStore";
 import { useGenreStore } from "~/store/genreStore";
-
-const emit = defineEmits(["close"]);
+import { useListingStore } from "~/store/listingStore";
 
 const { t } = useI18n();
 
-const form = ref<CreateListingRequest>({
-    title: "",
-    body: "",
-    is_sale_offer: false,
-    price: undefined,
-    tag_ids: [],
-    genre_ids: [],
+const form = ref<EditListingRequest>({
+    title: listingStore.currentListing?.title ?? "",
+    body: listingStore.currentListing?.body ?? "",
+    is_sale_offer: listingStore.currentListing?.is_sale_offer ?? false,
+    price: listingStore.currentListing?.price ?? undefined,
+    tag_ids: listingStore.currentListing?.tags.map((tag) => tag.id) ?? [],
+    genre_ids:
+        listingStore.currentListing?.genres.map((genre) => genre.id) ?? [],
 });
 
 type ErrorMessages = {
@@ -32,16 +38,18 @@ const errorMessages = ref<ErrorMessages | null>(null);
 async function handleSubmit() {
     console.log("FORM", form.value);
     errorMessages.value = null;
-    const { data, error } = await useApiFetch<Listing>("/api/listings", {
-        method: "POST",
-        body: form.value,
-    });
+    const { error } = await useApiFetch(
+        `/api/listings/${listingStore.currentListing?.id}`,
+        {
+            method: "PUT",
+            body: form.value,
+        },
+    );
     if (error.value != null) {
         console.log("TITLE ERROR", error.value.data.errors.title);
         errorMessages.value = error.value.data.errors;
     } else {
-        navigateTo(`/edit/listings/${data.value?.id}`);
-        emit("close");
+        navigateTo("/dashboard");
     }
 }
 
@@ -65,13 +73,14 @@ watchEffect(() => {
 </script>
 
 <template>
+    <div>Component: EditListingPanel</div>
     <div class="flex flex-col gap-4">
         <UFormGroup
             :label="$t('title')"
             required
             :error="errorMessages?.title != null && errorMessages?.title[0]"
         >
-            <UInput v-model="form.title" :placeholder="$t('title')" autofocus />
+            <UInput v-model="form.title" :placeholder="$t('title')" />
         </UFormGroup>
         <UFormGroup
             :label="$t('body')"
@@ -139,6 +148,7 @@ watchEffect(() => {
                 @click="handleSubmit"
             />
         </div>
+        <AddLinksPanel />
     </div>
 </template>
 

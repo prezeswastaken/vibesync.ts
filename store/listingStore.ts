@@ -12,12 +12,33 @@ export const useListingStore = defineStore(
 	() => {
 		const listings = ref<Listing[]>([]);
 
+		const currentListing = ref<Listing | null>(null);
+
 		async function fetchAllListings() {
 			const response = await useApiFetch<Listing[]>("/api/listings");
 			listings.value = response.data.value || [];
 			return response;
 		}
-		return { fetchAllListings, listings };
+
+		async function fetchMyListings() {
+			const response = await useApiFetch<Listing[]>("/api/my/listings");
+			listings.value = response.data.value || [];
+			return response;
+		}
+
+		async function fetchListingByID(id: number) {
+			const response = await useApiFetch<Listing>(`/api/listings/${id}`);
+			currentListing.value = response.data.value || null;
+			return response;
+		}
+
+		return {
+			fetchAllListings,
+			fetchMyListings,
+			fetchListingByID,
+			listings,
+			currentListing,
+		};
 	},
 
 	{ persist: true },

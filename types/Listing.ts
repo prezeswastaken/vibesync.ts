@@ -1,4 +1,6 @@
+import type { Genre } from "./Genre";
 import type { Link } from "./Link";
+import type { Tag } from "./Tag";
 
 export type Listing = {
 	id: number;
@@ -8,16 +10,25 @@ export type Listing = {
 	user_id: number;
 	body: string;
 	price: number | null | undefined;
-	is_sale_order: boolean;
+	is_sale_offer: boolean;
 	is_published: boolean;
 	created_at: string;
 	updated_at: string;
-	genres: string[];
-	tags: string[];
+	genres: Genre[];
+	tags: Tag[];
 	links: Link[];
 };
 
 export type CreateListingRequest = {
+	title: string;
+	body: string;
+	is_sale_offer: boolean;
+	price: string | number | undefined;
+	tag_ids: number[];
+	genre_ids: number[];
+};
+
+export type EditListingRequest = {
 	title: string;
 	body: string;
 	is_sale_offer: boolean;

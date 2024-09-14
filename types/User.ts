@@ -2,7 +2,7 @@ export type UserType = {
 	name: string;
 	email: string;
 	accessToken: string | null;
-	avatarUrl: string | null;
+	avatar_url: string | null;
 };
 
 export type RegisterFormType = {

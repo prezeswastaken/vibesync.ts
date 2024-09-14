@@ -4,6 +4,14 @@ import { type RefreshResponse } from "~/types/User";
 export default defineNuxtPlugin(async (nuxtApp) => {
 	const userStore = useUserStore();
 
+	const route = useRoute();
+	const token = (route.query.token as string) || undefined;
+	if (token != null) {
+		userStore.setAccessToken(token);
+		userStore.fetchUser();
+		navigateTo("/dashboard");
+	}
+
 	const oldAccessToken = userStore.accessToken;
 
 	if (oldAccessToken !== null) {

@@ -13,7 +13,7 @@ export const useUserStore = defineStore(
 		const accessToken = ref<string | null>(null);
 		async function login(form: LoginFormType) {
 			const response = await useApiFetch<LoginResponse>("/api/login", {
-				body: JSON.stringify(form),
+				body: form,
 				method: "POST",
 			});
 			user.value = response.data.value?.user || null;
@@ -23,7 +23,7 @@ export const useUserStore = defineStore(
 
 		async function register(form: RegisterFormType) {
 			const response = await useApiFetch<LoginResponse>("/api/register", {
-				body: JSON.stringify(form),
+				body: form,
 				method: "POST",
 			});
 			user.value = response.data.value?.user || null;
@@ -37,6 +37,12 @@ export const useUserStore = defineStore(
 			});
 			user.value = null;
 			accessToken.value = null;
+			return response;
+		}
+
+		async function fetchUser() {
+			const response = await useApiFetch<UserType>("/api/me");
+			user.value = response.data.value || null;
 			return response;
 		}
 
@@ -59,6 +65,7 @@ export const useUserStore = defineStore(
 			setAccessToken,
 			setUser,
 			logout,
+			fetchUser,
 		};
 	},
 

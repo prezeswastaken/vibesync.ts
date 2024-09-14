@@ -7,7 +7,7 @@ useHead({ title: "Vibe Sync" });
         <TopBar />
         <UCard class="mt-20">
             <div class="flex justify-between">
-                <h1>Welcome to VibeSync!</h1>
+                <h1>{{ $t("welcome") }}</h1>
                 <ColorScheme
                     ><USelect
                         v-model="$colorMode.preference"

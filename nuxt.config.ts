@@ -1,6 +1,11 @@
 export default defineNuxtConfig({
 	devtools: { enabled: true },
-	modules: ["@nuxt/ui", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
+	modules: [
+		"@nuxt/ui",
+		"@pinia/nuxt",
+		"@pinia-plugin-persistedstate/nuxt",
+		"@nuxtjs/i18n",
+	],
 	ssr: false,
 	compatibilityDate: "2024-09-04",
 	runtimeConfig: {
