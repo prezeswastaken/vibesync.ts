@@ -39,6 +39,7 @@ export default defineI18nConfig(() => ({
 			saveWithoutPublishing: "Zapisz zmiany bez publikacji",
 			saveChanges: "Save changes",
 			proceed: "Proceed",
+			edit: "Edit",
 		},
 		pl: {
 			welcome: "Witaj w VibeSync!",
@@ -78,6 +79,7 @@ export default defineI18nConfig(() => ({
 			saveWithoutPublishing: "Zapisz zmiany bez publikacji",
 			saveChanges: "Zapisz zmiany",
 			proceed: "Dalej",
+			edit: "Edytuj",
 		},
 	},
 }));

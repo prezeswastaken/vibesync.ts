@@ -1,22 +1,34 @@
 <script setup lang="ts">
+import { useUserStore } from "~/store/userStore";
 import type { Listing } from "~/types/Listing";
 
 defineProps<{
     listing: Listing;
 }>();
+
+const userStore = useUserStore();
 </script>
 
 <template>
     <UCard class="mt-5">
-        <div class="flex gap-4">
-            <div class="text-md">{{ listing.author }}</div>
-            <img
-                :src="
-                    listing.author_avatar_url ??
-                    'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'
-                "
-                class="w-8 h-8 rounded-full"
-            />
+        <div class="flex justify-between w-full">
+            <div class="flex gap-4">
+                <div class="text-md">{{ listing.author }}</div>
+                <img
+                    :src="
+                        listing.author_avatar_url ??
+                        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'
+                    "
+                    class="w-8 h-8 rounded-full"
+                />
+            </div>
+            <UButton
+                v-if="listing.user_id === userStore.user?.id"
+                @click="() => navigateTo(`/edit/listings/${listing.id}`)"
+                color="white"
+                icon="mdi-light:pencil"
+                >{{ $t("edit") }}</UButton
+            >
         </div>
         <div class="text-lg font-bold">{{ listing.title }}</div>
         <div>{{ listing.body }}</div>
@@ -46,6 +58,7 @@ defineProps<{
                 target="_blank"
                 class="text-blue-500"
             >
+                <UIcon name="mdi-light:link-variant" class="mr-2" />
                 {{ link.url }}
             </NuxtLink>
         </div>

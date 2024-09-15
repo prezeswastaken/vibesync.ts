@@ -124,19 +124,12 @@ watchEffect(() => {
         </UFormGroup>
         <UDivider />
         <div class="flex justify-between w-full">
-            <UButton
-                :label="$t('close')"
-                @click="
-                    () => {
-                        $emit('close');
-                    }
-                "
-                color="white"
-            />
+            <div></div>
             <UButton
                 :label="$t('proceed')"
                 class="self-end w-fit"
                 @click="handleSubmit"
+                :title="$t('proceed')"
             />
         </div>
     </div>

@@ -90,7 +90,18 @@ const guestLinks = computed(() => [
         </div>
         <UModal v-model="showModal" title="Create Listing" prevent-close
             ><UCard>
-                <template #header> <h1>Create listing</h1> </template>
+                <template #header>
+                    <div class="flex justify-between w-full">
+                        <h1>{{ $t("createListing") }}</h1>
+                        <UButton
+                            color="white"
+                            icon="ci:close-md"
+                            no-rel
+                            @click="() => (showModal = false)"
+                            :title="$t('close')"
+                        />
+                    </div>
+                </template>
                 <CreateListingForm @close="() => (showModal = false)" />
                 <template #footer> </template>
             </UCard>
