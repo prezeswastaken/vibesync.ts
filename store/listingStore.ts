@@ -12,17 +12,31 @@ export const useListingStore = defineStore(
 	() => {
 		const listings = ref<Listing[]>([]);
 
+		const totalListings = ref<number>(10);
+
 		const currentListing = ref<Listing | null>(null);
 
-		async function fetchAllListings() {
-			const response = await useApiFetch<Listing[]>("/api/listings");
-			listings.value = response.data.value || [];
+		const currentPage = ref<number>(1);
+
+		async function fetchAllListings(page: number = 1) {
+			currentPage.value = page;
+			const response = await useApiFetch<{
+				data: Listing[];
+				meta: { total: number };
+			}>(`/api/listings/?page=${page}`);
+			listings.value = response.data.value?.data || [];
+			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
 		}
 
-		async function fetchMyListings() {
-			const response = await useApiFetch<Listing[]>("/api/my/listings");
-			listings.value = response.data.value || [];
+		async function fetchMyListings(page: number = 1) {
+			currentPage.value = page;
+			const response = await useApiFetch<{
+				data: Listing[];
+				meta: { total: number };
+			}>(`/api/my/listings/?page=${page}`);
+			listings.value = response.data.value?.data || [];
+			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
 		}
 
@@ -46,6 +60,8 @@ export const useListingStore = defineStore(
 			listings,
 			currentListing,
 			deleteListing,
+			totalListings,
+			currentPage,
 		};
 	},
 

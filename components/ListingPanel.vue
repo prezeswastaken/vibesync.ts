@@ -1,12 +1,60 @@
 <script setup lang="ts">
+import { useListingStore } from "~/store/listingStore";
 import { useUserStore } from "~/store/userStore";
 import type { Listing } from "~/types/Listing";
 
-defineProps<{
+const props = defineProps<{
     listing: Listing;
 }>();
 
 const userStore = useUserStore();
+const listingStore = useListingStore();
+const route = useRoute();
+
+function immediateResponse(isLike: boolean) {
+    const listing = listingStore.listings.find(
+        (listing) => listing.id === props.listing.id,
+    );
+    if (listing == null) {
+        return;
+    }
+    if (isLike) {
+        if (listing.does_current_user_dislike) {
+            listing.dislike_count--;
+        }
+        listing.does_current_user_like = !listing.does_current_user_like;
+        listing.does_current_user_dislike = false;
+        listing.does_current_user_like
+            ? listing.like_count++
+            : listing.like_count--;
+    }
+
+    if (!isLike) {
+        if (listing.does_current_user_like) {
+            listing.like_count--;
+        }
+        listing.does_current_user_dislike = !listing.does_current_user_dislike;
+        listing.does_current_user_like = false;
+        listing.does_current_user_dislike
+            ? listing.dislike_count++
+            : listing.dislike_count--;
+    }
+}
+
+async function handleLikeOrDislike(isLike: boolean) {
+    immediateResponse(isLike);
+    const likeOrDislike = isLike ? "like" : "dislike";
+    const path = `/api/listings/${props.listing.id}/${likeOrDislike}`;
+
+    await useApiFetch(path, {
+        method: "POST",
+    });
+    if (route.name === "my-listings") {
+        listingStore.fetchMyListings(listingStore.currentPage);
+    } else {
+        listingStore.fetchAllListings(listingStore.currentPage);
+    }
+}
 </script>
 
 <template>
@@ -69,6 +117,33 @@ const userStore = useUserStore();
                 <UIcon name="mdi-light:link-variant" class="mr-2" />
                 {{ link.url }}
             </NuxtLink>
+        </div>
+        <div class="flex mt-5">
+            <div class="flex gap-1 items-center">
+                <UButton
+                    :color="
+                        listing.does_current_user_like ? 'primary' : 'white'
+                    "
+                    icon="icon-park-outline:thumbs-up"
+                    @click="handleLikeOrDislike(true)"
+                />
+                <p>{{ listing.like_count }}</p>
+            </div>
+            <div class="flex flex-col">
+                <UIcon class="w-5 h-5" name="tabler:minus-vertical" />
+                <UIcon class="-mt-3 w-5 h-5" name="tabler:minus-vertical" />
+                <UIcon class="-mt-3 w-5 h-5" name="tabler:minus-vertical" />
+            </div>
+            <div class="flex gap-1 items-center">
+                <UButton
+                    :color="
+                        listing.does_current_user_dislike ? 'primary' : 'white'
+                    "
+                    icon="icon-park-outline:thumbs-down"
+                    @click="handleLikeOrDislike(false)"
+                />
+                <p>{{ listing.dislike_count }}</p>
+            </div>
         </div>
     </UCard>
 </template>

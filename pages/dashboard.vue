@@ -8,7 +8,7 @@ definePageMeta({
 
 const listingStore = useListingStore();
 
-await listingStore.fetchAllListings();
+listingStore.fetchAllListings();
 
 console.log(listingStore.listings);
 

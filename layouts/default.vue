@@ -3,20 +3,22 @@ useHead({ title: "Vibe Sync" });
 </script>
 
 <template>
-    <UContainer>
-        <TopBar />
-        <UCard class="mt-20">
-            <div class="flex justify-between">
-                <div />
-                <ColorScheme
-                    ><USelect
-                        v-model="$colorMode.preference"
-                        :options="['system', 'light', 'dark']"
-                /></ColorScheme>
-            </div>
-            <slot />
-        </UCard>
-    </UContainer>
+    <UCard>
+        <UContainer>
+            <TopBar />
+            <UCard class="mt-20">
+                <div class="flex justify-between">
+                    <div />
+                    <ColorScheme
+                        ><USelect
+                            v-model="$colorMode.preference"
+                            :options="['system', 'light', 'dark']"
+                    /></ColorScheme>
+                </div>
+                <slot />
+            </UCard>
+        </UContainer>
+    </UCard>
 </template>
 
 <style scoped></style>

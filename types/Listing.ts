@@ -17,6 +17,10 @@ export type Listing = {
 	genres: Genre[];
 	tags: Tag[];
 	links: Link[];
+	like_count: number;
+	dislike_count: number;
+	does_current_user_like: boolean;
+	does_current_user_dislike: boolean;
 };
 
 export type CreateListingRequest = {

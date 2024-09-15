@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const { locale, setLocale } = useI18n();
 import { useLocaleStore } from "~/store/localeStore";
+import { useUserStore } from "~/store/userStore";
+
+const userStore = useUserStore();
 
 const options = [
     {
@@ -35,7 +38,10 @@ const iconClass = computed(() => {
 </script>
 
 <template>
-    <div class="flex flex-col justify-center">
+    <div
+        class="flex flex-col justify-center w-16"
+        :class="userStore.isLoggedIn ? '' : ' mr-5'"
+    >
         <USelect
             :icon="iconClass"
             color="white"

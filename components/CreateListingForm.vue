@@ -104,6 +104,7 @@ watchEffect(() => {
                 :placeholder="$t('selectTags')"
                 value-attribute="id"
                 option-attribute="name"
+                :title="$t('tags')"
             />
         </UFormGroup>
         <UFormGroup
