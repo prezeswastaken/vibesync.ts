@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useListingStore } from "~/store/listingStore";
 
+definePageMeta({
+    middleware: "auth",
+});
+
 const route = useRoute();
 const id = route.params.id;
 
@@ -13,7 +17,7 @@ listingStore.fetchListingByID(Number(id));
 </script>
 
 <template>
-    <div>Hello</div>
+    <div class="ml-3 text-lg font-bold uppercase">{{ $t("edit") }}</div>
     <EditListingPanel
         v-if="listingStore.currentListing"
         :listing="listingStore.currentListing"

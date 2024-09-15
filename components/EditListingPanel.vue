@@ -80,11 +80,39 @@ watchEffect(() => {
         form.value.price = undefined;
     }
 });
+
+const isDeleting = ref(false);
+
+async function handleDelete() {
+    if (!isDeleting.value) {
+        isDeleting.value = true;
+        return;
+    }
+    const id = listingStore.currentListing?.id;
+    if (id == null) {
+        return;
+    }
+    await listingStore.deleteListing(id);
+    isDeleting.value = false;
+    navigateTo("/my-listings");
+}
 </script>
 
 <template>
-    <div>Component: EditListingPanel</div>
+    <div class="flex justify-end" title="Delete listing">
+        <UButton
+            icon="ant-design:delete-outlined"
+            color="white"
+            @click="handleDelete"
+        />
+    </div>
     <div class="flex flex-col gap-4">
+        <p
+            v-if="!listingStore.currentListing?.is_published"
+            class="text-orange-300 lowercase"
+        >
+            ( {{ $t("unpublished") }} )
+        </p>
         <UFormGroup
             :label="$t('title')"
             required
@@ -165,6 +193,11 @@ watchEffect(() => {
                 @click="handleSubmit(true)"
             />
         </div>
+        <AreYouSureModal
+            v-model="isDeleting"
+            @yes="handleDelete"
+            @no="() => (isDeleting = false)"
+        />
     </div>
 </template>
 

@@ -11,6 +11,9 @@ const userStore = useUserStore();
 
 <template>
     <UCard class="mt-5">
+        <p v-if="!listing.is_published" class="text-orange-300 lowercase">
+            ( {{ $t("unpublished") }} )
+        </p>
         <div class="flex justify-between w-full">
             <div class="flex gap-4">
                 <div class="text-md">{{ listing.author }}</div>
@@ -30,7 +33,12 @@ const userStore = useUserStore();
                 >{{ $t("edit") }}</UButton
             >
         </div>
-        <div class="text-lg font-bold">{{ listing.title }}</div>
+        <div
+            class="text-lg font-bold"
+            :class="listing.is_published ? '' : ' text-gray-500'"
+        >
+            {{ listing.title }}
+        </div>
         <div>{{ listing.body }}</div>
         <div class="flex justify-between mt-3 w-full">
             <p
@@ -50,13 +58,13 @@ const userStore = useUserStore();
         </div>
 
         <div class="flex flex-col">
-            <p>Links:</p>
+            <p v-if="listing.links.length > 0">Links:</p>
             <NuxtLink
                 v-for="link in listing.links"
                 :key="link.id"
                 :to="link.url"
                 target="_blank"
-                class="text-blue-500"
+                class="text-blue-500 w-fit"
             >
                 <UIcon name="mdi-light:link-variant" class="mr-2" />
                 {{ link.url }}

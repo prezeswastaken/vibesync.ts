@@ -18,42 +18,13 @@ function toggleShowModal() {
 
 const { t } = useI18n();
 
-const profileImage = computed(() => {
-    const userImage = userStore.user?.avatar_url;
-    const profileImage =
-        userImage ??
-        "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
-    console.log(profileImage);
-    return profileImage;
-});
-
 const authLinks = computed(() => [
     {
         label: t("home"),
         icon: "i-heroicons-home",
         to: "/dashboard",
     },
-    {
-        label: t("profile"),
-        avatar: {
-            src: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541",
-        },
-        // badge: 100,
-        to: "/profile",
-    },
-    {
-        label: t("logout"),
-        icon: "i-heroicons-arrow-left-end-on-rectangle",
-        click: async () => {
-            await userStore.logout();
-            navigateTo("/login");
-        },
-    },
 ]);
-
-watchEffect(() => {
-    authLinks.value[1].avatar.src = profileImage.value;
-});
 
 const guestLinks = computed(() => [
     {
@@ -78,6 +49,10 @@ const guestLinks = computed(() => [
             class="flex justify-end pl-12 border-b border-gray-200 dark:border-gray-800 w-fit"
         >
             <UButton
+                v-if="
+                    !route.path.includes('/login') &&
+                    !route.path.includes('/register')
+                "
                 :label="$t('createListing')"
                 class="m-3"
                 @click="toggleShowModal"
@@ -86,7 +61,8 @@ const guestLinks = computed(() => [
                 class="w-fit"
                 :links="userStore.isLoggedIn ? authLinks : guestLinks"
             />
-            <LanguageSelect class="mr-5" />
+            <LanguageSelect />
+            <ProfileDropdown v-if="userStore.isLoggedIn" class="mr-5 ml-5" />
         </div>
         <UModal v-model="showModal" title="Create Listing" prevent-close
             ><UCard>

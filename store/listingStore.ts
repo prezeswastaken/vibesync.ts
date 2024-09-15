@@ -32,12 +32,20 @@ export const useListingStore = defineStore(
 			return response;
 		}
 
+		async function deleteListing(id: number) {
+			const response = await useApiFetch<void>(`/api/listings/${id}`, {
+				method: "DELETE",
+			});
+			return response;
+		}
+
 		return {
 			fetchAllListings,
 			fetchMyListings,
 			fetchListingByID,
 			listings,
 			currentListing,
+			deleteListing,
 		};
 	},
 
