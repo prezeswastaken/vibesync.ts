@@ -121,6 +121,7 @@ async function handleLikeOrDislike(isLike: boolean) {
         <div class="flex mt-5">
             <div class="flex gap-1 items-center">
                 <UButton
+                    class="duration-500"
                     :color="
                         listing.does_current_user_like ? 'primary' : 'white'
                     "
@@ -136,6 +137,7 @@ async function handleLikeOrDislike(isLike: boolean) {
             </div>
             <div class="flex gap-1 items-center">
                 <UButton
+                    class="duration-500"
                     :color="
                         listing.does_current_user_dislike ? 'primary' : 'white'
                     "
