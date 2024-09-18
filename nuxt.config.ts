@@ -13,6 +13,10 @@ export default defineNuxtConfig({
 		public: {
 			laravelApiUrl: "http://localhost:8000", // can be overridden by NUXT_PUBLIC_LARAVEL_API_URL environment variable
 			frontendUrl: "http://localhost:3000",
+			reverbKey: "change-me",
+			reverbHost: "0.0.0.0",
+			reberbWsPort: 8080,
+			reberbWssPort: 8001,
 		},
 	},
 });

@@ -10,6 +10,7 @@ export function useApiFetch<T>(path: string, options: UseFetchOptions<T> = {}) {
 		referer: config.public.frontendUrl,
 		charset: "UTF-8",
 		Accept: "application/json",
+		"X-Socket-ID": userStore.socketId,
 	};
 
 	if (userStore.accessToken !== null) {

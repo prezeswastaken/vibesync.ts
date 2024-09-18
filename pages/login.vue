@@ -14,6 +14,7 @@ const { t } = useI18n();
 const loginData = ref({ email: "", password: "" });
 
 const errorMessage = ref<string | null>(null);
+console.log("API_URL", useRuntimeConfig().public.laravelApiUrl);
 
 async function handleSubmit() {
     errorMessage.value = null;
@@ -22,10 +23,14 @@ async function handleSubmit() {
         console.log("ERROR", error);
         errorMessage.value = t("invalidEmailOrPassword");
     } else {
-        navigateTo("/dashboard");
+        await navigateTo("/dashboard");
     }
     console.log(userStore.user);
 }
+
+onMounted(() => {
+    localStorage.removeItem("accessToken");
+});
 </script>
 
 <template>

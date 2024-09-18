@@ -1,10 +1,21 @@
 <script setup lang="ts">
 import { useListingStore } from "~/store/listingStore";
 import { useUserStore } from "~/store/userStore";
+import type { ListingLikedPayload } from "~/types/Events";
 
 definePageMeta({
     middleware: "auth",
 });
+
+const userStore = useUserStore();
+
+if (userStore.accessToken == null) {
+    userStore.hasRefreshed = false;
+}
+if (!userStore.hasRefreshed) {
+    window.location.reload();
+    userStore.hasRefreshed = true;
+}
 
 const listingStore = useListingStore();
 
@@ -12,7 +23,6 @@ listingStore.fetchAllListings();
 
 console.log(listingStore.listings);
 
-const userStore = useUserStore();
 console.log(userStore.accessToken);
 const userName = ref(userStore.user?.name);
 </script>

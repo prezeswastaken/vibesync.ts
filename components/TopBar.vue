@@ -82,5 +82,6 @@ const guestLinks = computed(() => [
                 <template #footer> </template>
             </UCard>
         </UModal>
+        <AuthNotifications v-if="userStore.accessToken != null" />
     </div>
 </template>

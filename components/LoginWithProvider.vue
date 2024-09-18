@@ -7,7 +7,7 @@ function redirectToProvider(provider: string) {
 </script>
 
 <template>
-    <div class="flex flex-col gap-5 justify-center items-center w-full">
+    <div class="flex flex-col gap-5 justify-center items-center ml-5 w-full">
         <p class="text-lg">{{ $t("or") }}</p>
         <UDivider />
         <UButton

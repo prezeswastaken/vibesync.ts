@@ -11,13 +11,17 @@ export const useUserStore = defineStore(
 	() => {
 		const user = ref<UserType | null>(null);
 		const accessToken = ref<string | null>(null);
+		const hasRefreshed = ref<boolean>(false);
+
+		const socketId = ref<string | null>(null);
+
 		async function login(form: LoginFormType) {
 			const response = await useApiFetch<LoginResponse>("/api/login", {
 				body: form,
 				method: "POST",
 			});
-			user.value = response.data.value?.user || null;
 			accessToken.value = response.data.value?.access_token || null;
+			user.value = response.data.value?.user || null;
 			return response;
 		}
 
@@ -37,6 +41,7 @@ export const useUserStore = defineStore(
 			});
 			user.value = null;
 			accessToken.value = null;
+			hasRefreshed.value = false;
 			return response;
 		}
 
@@ -50,6 +55,10 @@ export const useUserStore = defineStore(
 
 		function setAccessToken(token: string | null) {
 			accessToken.value = token;
+		}
+
+		function setSocketId(newSocketId: string | null) {
+			socketId.value = newSocketId;
 		}
 
 		function setUser(newUser: UserType | null) {
@@ -66,6 +75,8 @@ export const useUserStore = defineStore(
 			setUser,
 			logout,
 			fetchUser,
+			socketId,
+			hasRefreshed,
 		};
 	},
 

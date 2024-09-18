@@ -7,8 +7,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 	const route = useRoute();
 	const token = (route.query.token as string) || undefined;
 	if (token != null) {
+		userStore.hasRefreshed = true;
 		userStore.setAccessToken(token);
-		userStore.fetchUser();
+		await userStore.fetchUser();
 		navigateTo("/dashboard");
 	}
 
