@@ -11,14 +11,17 @@ const listingsStore = useListingStore();
 
 const route = useRoute();
 
-watchEffect(() => {
-    if (route.name === "my-listings") {
-        listingsStore.fetchMyListings(page.value);
-    } else {
-        listingsStore.fetchAllListings(page.value);
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-});
+watch(
+    () => page.value,
+    (newValue, oldValue) => {
+        if (route.name === "my-listings") {
+            listingsStore.fetchMyListings(newValue);
+        } else {
+            listingsStore.fetchAllListings(newValue);
+        }
+    },
+    { immediate: false },
+);
 
 watch(
     () => listingsStore.currentCurrencyId,
@@ -29,6 +32,7 @@ watch(
             listingsStore.fetchAllListings(page.value);
         }
     },
+    { immediate: false },
 );
 </script>
 
