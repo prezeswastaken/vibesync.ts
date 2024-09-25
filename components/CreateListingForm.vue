@@ -4,6 +4,7 @@ import type { Tag } from "~/types/Tag";
 import type { CreateListingRequest, Listing } from "~/types/Listing";
 import { useTagStore } from "~/store/tagStore";
 import { useGenreStore } from "~/store/genreStore";
+import { useCurrencyStore } from "~/store/currencyStore";
 
 const emit = defineEmits(["close"]);
 
@@ -14,6 +15,7 @@ const form = ref<CreateListingRequest>({
     body: "",
     is_sale_offer: false,
     price: undefined,
+    currency_id: null,
     tag_ids: [],
     genre_ids: [],
 });
@@ -23,6 +25,7 @@ type ErrorMessages = {
     body: string[];
     is_sale_offer: string[];
     price: string[];
+    currency_id: string[];
     tag_ids: string[];
     genre_ids: string[];
 };
@@ -47,19 +50,24 @@ async function handleSubmit() {
 
 const tagStore = useTagStore();
 const genreStore = useGenreStore();
+const currencyStore = useCurrencyStore();
 
 tagStore.fetchTags();
 genreStore.fetchGenres();
+currencyStore.fetchCurrencies();
 
 const tags = computed(() => tagStore.tags);
 const genres = computed(() => genreStore.genres);
+const currencies = computed(() => currencyStore.currencies);
 console.log(tags);
 
 console.log(genres);
+console.log("Currencies", currencies);
 
 watchEffect(() => {
     if (form.value.is_sale_offer === false) {
-        form.value.price = undefined;
+        form.value.amount = undefined;
+        form.value.currency_id = null;
     }
 });
 </script>
@@ -86,12 +94,29 @@ watchEffect(() => {
         </UFormGroup>
         <UCheckbox v-model="form.is_sale_offer" :label="$t('isSaleOffer')" />
         <UFormGroup
-            :label="$t('price')"
+            :label="$t('amount')"
             v-if="form.is_sale_offer"
             :error="errorMessages?.price != null && errorMessages?.price[0]"
         >
             <UInput v-model="form.price" type="number" placeholder="Price" />
         </UFormGroup>
+        <UFormGroup
+            :label="$t('selectCurrency')"
+            v-if="form.is_sale_offer"
+            :error="
+                errorMessages?.currency_id != null &&
+                errorMessages?.currency_id[0]
+            "
+        >
+            <USelectMenu
+                v-model="form.currency_id"
+                :options="currencies"
+                :placeholder="$t('selectCurrency')"
+                value-attribute="id"
+                option-attribute="code"
+            />
+        </UFormGroup>
+
         <UFormGroup
             :label="t('tags')"
             required

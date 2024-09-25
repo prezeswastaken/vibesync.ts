@@ -105,6 +105,13 @@ async function handleLikeOrDislike(isLike: boolean) {
             </p>
         </div>
 
+        <div v-if="listing.price">
+            <p class="w-full text-end">
+                <UIcon name="fa6-solid:wallet" /> {{ listing.price.amount }}
+                {{ listing.price.currency_code }}
+            </p>
+        </div>
+
         <div class="flex flex-col">
             <p v-if="listing.links.length > 0">Links:</p>
             <NuxtLink

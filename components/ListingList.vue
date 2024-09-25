@@ -19,6 +19,17 @@ watchEffect(() => {
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+watch(
+    () => listingsStore.currentCurrencyId,
+    () => {
+        if (route.name === "my-listings") {
+            listingsStore.fetchMyListings(page.value);
+        } else {
+            listingsStore.fetchAllListings(page.value);
+        }
+    },
+);
 </script>
 
 <template>

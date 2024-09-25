@@ -46,6 +46,9 @@ export default defineI18nConfig(() => ({
 			no: "No",
 			areYouSure: "Are you sure?",
 			unpublished: "Unpublished",
+			selectCurrency: "Select currency",
+			unchanged: "Unchanged",
+			amount: "Amount",
 		},
 		pl: {
 			welcome: "Witaj w VibeSync!",
@@ -92,6 +95,9 @@ export default defineI18nConfig(() => ({
 			no: "Nie",
 			areYouSure: "Czy na pewno?",
 			unpublished: "Nieopublikowane",
+			selectCurrency: "Wybierz walutę",
+			unchanged: "Bez zmian",
+			amount: "Cena",
 		},
 	},
 }));

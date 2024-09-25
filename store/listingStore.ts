@@ -18,12 +18,17 @@ export const useListingStore = defineStore(
 
 		const currentPage = ref<number>(1);
 
+		const currentCurrencyId = ref<number | null>(null);
+
 		async function fetchAllListings(page: number = 1) {
 			currentPage.value = page;
+			const currencyParam = currentCurrencyId.value
+				? `&currency_id=${currentCurrencyId.value}`
+				: "";
 			const response = await useApiFetch<{
 				data: Listing[];
 				meta: { total: number };
-			}>(`/api/listings/?page=${page}`);
+			}>(`/api/listings/?page=${page}${currencyParam}`);
 			listings.value = response.data.value?.data || [];
 			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
@@ -62,6 +67,7 @@ export const useListingStore = defineStore(
 			deleteListing,
 			totalListings,
 			currentPage,
+			currentCurrencyId,
 		};
 	},
 

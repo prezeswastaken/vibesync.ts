@@ -1,5 +1,6 @@
 import type { Genre } from "./Genre";
 import type { Link } from "./Link";
+import type { Price } from "./Price";
 import type { Tag } from "./Tag";
 
 export type Listing = {
@@ -9,7 +10,7 @@ export type Listing = {
 	title: string;
 	user_id: number;
 	body: string;
-	price: number | null | undefined;
+	price: Price | null;
 	is_sale_offer: boolean;
 	is_published: boolean;
 	created_at: string;
@@ -28,6 +29,7 @@ export type CreateListingRequest = {
 	body: string;
 	is_sale_offer: boolean;
 	price: string | number | undefined;
+	currency_id: number | string | undefined;
 	tag_ids: number[];
 	genre_ids: number[];
 };
@@ -37,6 +39,7 @@ export type EditListingRequest = {
 	body: string;
 	is_sale_offer: boolean;
 	price: string | number | undefined;
+	currency_id: number | undefined;
 	tag_ids: number[];
 	genre_ids: number[];
 };

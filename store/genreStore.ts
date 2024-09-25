@@ -13,5 +13,5 @@ export const useGenreStore = defineStore(
 		return { genres, fetchGenres };
 	},
 
-	{ persist: true },
+	{ persist: false },
 );

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useListingStore } from "~/store/listingStore";
 import { useUserStore } from "~/store/userStore";
-import type { ListingLikedPayload } from "~/types/Events";
 
 definePageMeta({
     middleware: "auth",
@@ -24,7 +23,6 @@ listingStore.fetchAllListings();
 console.log(listingStore.listings);
 
 console.log(userStore.accessToken);
-const userName = ref(userStore.user?.name);
 </script>
 
 <template>
@@ -32,6 +30,7 @@ const userName = ref(userStore.user?.name);
         <h1 class="mb-5 ml-3 text-lg font-bold capitalize">
             {{ $t("home") }}
         </h1>
+        <CurrencySwitcher />
         <ListingList :listings="listingStore.listings" />
     </div>
 </template>

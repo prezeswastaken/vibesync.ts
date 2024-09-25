@@ -6,6 +6,7 @@ import { useTagStore } from "~/store/tagStore";
 import { useGenreStore } from "~/store/genreStore";
 import { useListingStore } from "~/store/listingStore";
 import type { EditListingRequest, Listing } from "~/types/Listing";
+import { useCurrencyStore } from "~/store/currencyStore";
 
 const { t } = useI18n();
 
@@ -23,7 +24,8 @@ const form = ref<EditListingRequest>({
     title: listingStore.currentListing?.title ?? "",
     body: listingStore.currentListing?.body ?? "",
     is_sale_offer: listingStore.currentListing?.is_sale_offer ?? false,
-    price: listingStore.currentListing?.price ?? undefined,
+    price: listingStore.currentListing?.price?.amount ?? undefined,
+    currency_id: listingStore.currentListing?.price?.currency_id ?? undefined,
     tag_ids: listingStore.currentListing?.tags.map((tag) => tag.id) ?? [],
     genre_ids:
         listingStore.currentListing?.genres.map((genre) => genre.id) ?? [],
@@ -34,6 +36,7 @@ type ErrorMessages = {
     body: string[];
     is_sale_offer: string[];
     price: string[];
+    currency_id: string[];
     tag_ids: string[];
     genre_ids: string[];
 };
@@ -65,12 +68,15 @@ async function handleSubmit(publish: boolean) {
 
 const tagStore = useTagStore();
 const genreStore = useGenreStore();
+const currencyStore = useCurrencyStore();
 
 tagStore.fetchTags();
 genreStore.fetchGenres();
+currencyStore.fetchCurrencies();
 
 const tags = computed(() => tagStore.tags);
 const genres = computed(() => genreStore.genres);
+const currencies = computed(() => currencyStore.currencies);
 console.log(tags);
 
 console.log(genres);
@@ -138,6 +144,22 @@ async function handleDelete() {
             :error="errorMessages?.price != null && errorMessages?.price[0]"
         >
             <UInput v-model="form.price" type="number" placeholder="Price" />
+        </UFormGroup>
+        <UFormGroup
+            :label="$t('selectCurrency')"
+            v-if="form.is_sale_offer"
+            :error="
+                errorMessages?.currency_id != null &&
+                errorMessages?.currency_id[0]
+            "
+        >
+            <USelectMenu
+                v-model="form.currency_id"
+                :options="currencies"
+                :placeholder="$t('selectCurrency')"
+                value-attribute="id"
+                option-attribute="code"
+            />
         </UFormGroup>
         <UFormGroup
             :label="t('tags')"
