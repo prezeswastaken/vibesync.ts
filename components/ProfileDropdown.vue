@@ -40,6 +40,13 @@ const items = computed(() => [
     ],
     [
         {
+            label: t("accountSettings"),
+            icon: "grommet-icons:configure",
+            click: () => navigateTo("/account-settings"),
+        },
+    ],
+    [
+        {
             label: t("logout"),
             icon: "i-heroicons-arrow-left-on-rectangle",
             click: async () => {

@@ -49,6 +49,30 @@ export default defineI18nConfig(() => ({
 			selectCurrency: "Select currency",
 			unchanged: "Unchanged",
 			amount: "Amount",
+			accountSettings: "Account settings",
+			hero: {
+				title: "Where Music Makers",
+				highlight: "Connect",
+				description:
+					"Your marketplace for beats, vocals, and professional audio services. Connect with talented producers and vocalists worldwide.",
+			},
+			features: {
+				beats: {
+					title: "Beats & Instrumentals",
+					description:
+						"Find unique trap beats, compositions and instrumentals from talented producers worldwide",
+				},
+				vocals: {
+					title: "Vocal Services",
+					description:
+						"Connect with professional vocalists for features, hooks, and full song performances",
+				},
+				audio: {
+					title: "Audio Engineering",
+					description:
+						"Get professional mixing, mastering, and production services for your tracks",
+				},
+			},
 		},
 		pl: {
 			welcome: "Witaj w VibeSync!",
@@ -98,6 +122,30 @@ export default defineI18nConfig(() => ({
 			selectCurrency: "Wybierz walutę",
 			unchanged: "Bez zmian",
 			amount: "Cena",
+			accountSettings: "Ustawienia konta",
+			hero: {
+				title: "Gdzie Twórcy Muzyki",
+				highlight: "Łączą się",
+				description:
+					"Twoje miejsce na beaty, wokale i profesjonalne usługi audio. Połącz się z utalentowanymi producentami i wokalistami na całym świecie.",
+			},
+			features: {
+				beats: {
+					title: "Beaty i Instrumentale",
+					description:
+						"Znajdź unikalne beaty trapowe, kompozycje i podkłady muzyczne od utalentowanych producentów z całego świata",
+				},
+				vocals: {
+					title: "Usługi Wokalne",
+					description:
+						"Nawiąż współpracę z profesjonalnymi wokalistami w zakresie zwrotek, refrenów i pełnych wykonań utworów",
+				},
+				audio: {
+					title: "Inżynieria Dźwięku",
+					description:
+						"Skorzystaj z profesjonalnych usług miksowania, masteringu i produkcji swoich utworów",
+				},
+			},
 		},
 	},
 }));

@@ -19,4 +19,5 @@ export default defineNuxtConfig({
 			reberbWssPort: 8001,
 		},
 	},
+	spaLoadingTemplate: true,
 });
