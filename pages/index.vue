@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-
 definePageMeta({
     middleware: "guest",
 });
-
 const { t } = useI18n();
-
 const features = [
     {
         icon: "i-lucide-music",
@@ -25,19 +22,29 @@ const features = [
     },
 ];
 </script>
-
 <template>
-    <div class="min-h-screen text-gray-100 bg-gray-900">
+    <div
+        class="min-h-screen text-gray-900 bg-white dark:text-gray-100 dark:bg-gray-900"
+    >
         <!-- Hero Section -->
         <div class="relative py-24 px-6">
             <div class="mx-auto max-w-7xl text-center">
+                <div class="flex justify-center mb-8">
+                    <img
+                        class="w-56 bg-white rounded-full"
+                        :src="'https://i.imgur.com/9mETn5T.png'"
+                        alt="Logo"
+                    />
+                </div>
                 <h1 class="mb-6 text-5xl font-bold">
                     {{ $t("hero.title") }}
                     <span class="text-orange-500">{{
                         $t("hero.highlight")
                     }}</span>
                 </h1>
-                <p class="mx-auto mb-8 max-w-2xl text-xl text-gray-300">
+                <p
+                    class="mx-auto mb-8 max-w-2xl text-xl text-gray-600 dark:text-gray-300"
+                >
                     {{ $t("hero.description") }}
                 </p>
                 <div class="flex gap-4 justify-center">
@@ -62,7 +69,7 @@ const features = [
                 <div
                     v-for="(feature, index) in features"
                     :key="index"
-                    class="p-6 bg-gray-800 rounded-lg transition hover:bg-gray-750"
+                    class="p-6 bg-gray-50 rounded-lg transition dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-750"
                 >
                     <div class="mb-4">
                         <div
@@ -72,7 +79,9 @@ const features = [
                     <h3 class="mb-2 text-xl font-semibold">
                         {{ $t(feature.title) }}
                     </h3>
-                    <p class="text-gray-400">{{ $t(feature.description) }}</p>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        {{ $t(feature.description) }}
+                    </p>
                 </div>
             </div>
         </div>
