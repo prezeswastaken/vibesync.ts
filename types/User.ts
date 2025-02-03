@@ -4,6 +4,8 @@ export type UserType = {
 	email: string;
 	accessToken: string | null;
 	avatar_url: string | null;
+	spotify_id: string | null;
+	google_id: string | null;
 };
 
 export type RegisterFormType = {
