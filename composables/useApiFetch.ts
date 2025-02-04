@@ -13,7 +13,7 @@ export function useApiFetch<T>(path: string, options: UseFetchOptions<T> = {}) {
 		"X-Socket-ID": userStore.socketId,
 	};
 
-	if (userStore.accessToken !== null) {
+	if (userStore.accessToken != null) {
 		headers["Authorization"] = `Bearer ${userStore.accessToken}`;
 	}
 

@@ -89,6 +89,9 @@ export default defineI18nConfig(() => ({
 			currentPassword: "Current password",
 			newPassword: "New password",
 			newPasswordConfirmation: "New password confirmation",
+
+			emailMessage:
+				"Please enter your email. It will be shown near your listings, which will allow interested users to contact you about your listing.",
 		},
 		pl: {
 			welcome: "Witaj w VibeSync!",
@@ -154,6 +157,9 @@ export default defineI18nConfig(() => ({
 			updateEmail: "Zaktualizuj adres email",
 			emailConfirmation: "Potwierdzenie nowego adresu email",
 			currentEmail: "Obecny adres email",
+
+			emailMessage:
+				"Podaj swój adres email. Wyświetlany on będzie przy twoich ogłoszeniach, co umożliwi zainteresowanym użytkownikom kontakt w sprawie ogłoszenia.",
 
 			hero: {
 				title: "Gdzie Twórcy Muzyki",

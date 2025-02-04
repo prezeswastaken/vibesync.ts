@@ -1,7 +1,7 @@
 export type UserType = {
 	id: number;
 	name: string;
-	email: string;
+	email: string | null;
 	accessToken: string | null;
 	avatar_url: string | null;
 	spotify_id: string | null;
