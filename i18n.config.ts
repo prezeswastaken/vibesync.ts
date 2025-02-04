@@ -56,6 +56,13 @@ export default defineI18nConfig(() => ({
 			success: "Success!",
 			passwordUpdated: "Password updated succesfully!",
 			nameUpdated: "Name updated succesfully!",
+
+			emailUpdated: "Email updated succesfully!",
+			newEmail: "New email",
+			updateEmail: "Update email",
+			emailConfirmation: "Email confirmation",
+			currentEmail: "Current email",
+
 			hero: {
 				title: "Where Music Makers",
 				highlight: "Connect",
@@ -141,6 +148,13 @@ export default defineI18nConfig(() => ({
 			passwordUpdated: "Hasło zaktualizowano pomyślnie!",
 			nameUpdated: "Nazwa użytkownika zaktualizowana pomyślnie!",
 			success: "Sukces!",
+
+			emailUpdated: "Adres email zaktualizowano pomyślnie!",
+			newEmail: "Nowy adres email",
+			updateEmail: "Zaktualizuj adres email",
+			emailConfirmation: "Potwierdzenie nowego adresu email",
+			currentEmail: "Obecny adres email",
+
 			hero: {
 				title: "Gdzie Twórcy Muzyki",
 				highlight: "Łączą się",

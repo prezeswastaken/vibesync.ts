@@ -23,6 +23,12 @@ const passwordForm = ref({
     password_confirmation: "",
 });
 
+const emailForm = ref({
+    current_email: userStore.user?.email,
+    email: "",
+    email_confirmation: "",
+});
+
 async function handleSubmitName() {
     console.log("FORM", nameForm.value);
     errorMessages.value = null;
@@ -62,11 +68,34 @@ async function handleSubmitPassword() {
     userStore.fetchUser();
 }
 
+async function handleSubmitEmail() {
+    console.log("FORM", passwordForm.value);
+    errorMessages.value = null;
+    const { data, error } = await useApiFetch("/api/account", {
+        method: "PATCH",
+        body: emailForm.value,
+    });
+
+    if (error.value != null) {
+        console.log("EMAIL ERROR", error.value.data.errors.email);
+        errorMessages.value = error.value.data.errors;
+    } else {
+        toast.add({
+            title: t("success"),
+            description: t("emailUpdated"),
+        });
+    }
+    userStore.fetchUser();
+}
+
 type ErrorMessages = {
     name: string[];
     current_password: string[];
-    password_confirmation: string[];
     password: string[];
+    password_confirmation: string[];
+    current_email: string[];
+    email: string[];
+    email_confirmation: string[];
 };
 </script>
 
@@ -136,7 +165,7 @@ type ErrorMessages = {
                 required
                 :error="
                     errorMessages?.password_confirmation != null &&
-                    errorMessages?.password[0]
+                    errorMessages?.password_confirmation[0]
                 "
             >
                 <UInput
@@ -151,6 +180,60 @@ type ErrorMessages = {
                 class="self-end w-fit"
                 type="submit"
                 :label="t('updatePassword')"
+            />
+        </form>
+    </UCard>
+    <UCard>
+        <form class="flex flex-col gap-4" @submit.prevent="handleSubmitEmail">
+            <UFormGroup
+                :label="t('currentEmail')"
+                required
+                :error="
+                    errorMessages?.current_email != null &&
+                    errorMessages?.current_email[0]
+                "
+            >
+                <UInput
+                    v-model="emailForm.current_email"
+                    placeholder="email@example.com"
+                    type="email"
+                    icon="i-heroicons-envelope"
+                    autofocus
+                />
+            </UFormGroup>
+            <UFormGroup
+                :label="t('newEmail')"
+                required
+                :error="errorMessages?.email != null && errorMessages?.email[0]"
+            >
+                <UInput
+                    v-model="emailForm.email"
+                    placeholder="newEmail@example.com"
+                    type="email"
+                    icon="i-heroicons-envelope"
+                    autofocus
+                />
+            </UFormGroup>
+            <UFormGroup
+                :label="t('emailConfirmation')"
+                required
+                :error="
+                    errorMessages?.email_confirmation != null &&
+                    errorMessages?.email_confirmation[0]
+                "
+            >
+                <UInput
+                    v-model="emailForm.email_confirmation"
+                    placeholder="newEmail@example.com"
+                    type="email"
+                    icon="i-heroicons-envelope"
+                    autofocus
+                />
+            </UFormGroup>
+            <UButton
+                class="self-end w-fit"
+                type="submit"
+                :label="t('updateEmail')"
             />
         </form>
     </UCard>
