@@ -24,6 +24,11 @@ const authLinks = computed(() => [
         icon: "i-heroicons-home",
         to: "/dashboard",
     },
+    {
+        label: t("Users"),
+        icon: "mage:users-fill",
+        to: "/users",
+    },
 ]);
 
 const guestLinks = computed(() => [
