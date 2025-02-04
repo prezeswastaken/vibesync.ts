@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useUserStore } from "~/store/userStore";
+
+const userStore = useUserStore();
 
 type OtherUser = {
     id: string;
@@ -34,9 +37,18 @@ async function fetchUsers() {
     <UCard class="grid grid-cols-2 gap-2" v-if="(users?.length ?? 0) > 0">
         <UCard v-for="user in users" :key="user.id" class="mt-5">
             <NuxtLink class="user-link" :to="`/profile/${user.id}`">
-                <div class="flex gap-2 items-center">
-                    <UIcon name="i-heroicons-envelope" />
-                    <p>{{ user.name }}</p>
+                <div class="flex gap-2 justify-between items-center">
+                    <div class="flex gap-2 items-center">
+                        <UIcon name="i-heroicons-envelope" />
+                        <p>{{ user.name }}</p>
+                    </div>
+                    <div
+                        class="flex gap-2 items-center text-yellow-500"
+                        v-if="user.email === userStore.user?.email"
+                    >
+                        <p>You</p>
+                        <UIcon name="i-heroicons-star" />
+                    </div>
                 </div>
                 <div class="flex gap-2 items-center">
                     <UIcon name="i-heroicons-user" />
@@ -58,8 +70,7 @@ async function fetchUsers() {
     padding: 0.5rem;
     border-radius: 0.5rem;
 }
-
 .user-link:hover {
-    color: #2b6cb0; /* Highlight text color */
+    color: #2b6cb0;
 }
 </style>
