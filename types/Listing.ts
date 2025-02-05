@@ -6,6 +6,7 @@ import type { Tag } from "./Tag";
 export type Listing = {
 	id: number;
 	author: string;
+	email: string;
 	author_avatar_url: string | null;
 	title: string;
 	user_id: number;

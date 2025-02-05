@@ -3,6 +3,7 @@ export default defineI18nConfig(() => ({
 	locale: "en",
 	messages: {
 		en: {
+			contactEmail: "Contact email: ",
 			welcome: "Welcome to VibeSync!",
 			createListing: "CREATE LISTING",
 			home: "Listings",
@@ -94,6 +95,7 @@ export default defineI18nConfig(() => ({
 				"Please enter your email. It will be shown near your listings, which will allow interested users to contact you about your listing.",
 		},
 		pl: {
+			contactEmail: "Email kontaktowy: ",
 			welcome: "Witaj w VibeSync!",
 			createListing: "UTWÓRZ OGŁOSZENIE",
 			home: "Ogłoszenia",

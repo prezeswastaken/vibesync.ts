@@ -51,6 +51,11 @@ async function handleLikeOrDislike(isLike: boolean) {
     });
     if (route.name === "my-listings") {
         listingStore.fetchMyListings(listingStore.currentPage);
+    } else if (route.name?.toString().includes("profile")) {
+        listingStore.fetchUserListings(
+            listingStore.currentPage,
+            Number(route.params.id as string),
+        );
     } else {
         listingStore.fetchAllListings(listingStore.currentPage);
     }
@@ -80,6 +85,9 @@ async function handleLikeOrDislike(isLike: boolean) {
                 icon="mdi-light:pencil"
                 >{{ $t("edit") }}</UButton
             >
+        </div>
+        <div class="mb-2 text-blue-300">
+            {{ $t("contactEmail") }}{{ listing.email }}
         </div>
         <div
             class="text-lg font-bold"

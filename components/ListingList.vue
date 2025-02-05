@@ -16,6 +16,12 @@ watch(
     (newValue, oldValue) => {
         if (route.name === "my-listings") {
             listingsStore.fetchMyListings(newValue);
+        } else if (route.name?.toString().includes("profile")) {
+            console.log("WE ON PROFILE");
+            listingsStore.fetchUserListings(
+                newValue,
+                Number(route.params.id as string),
+            );
         } else {
             listingsStore.fetchAllListings(newValue);
         }
@@ -28,6 +34,11 @@ watch(
     () => {
         if (route.name === "my-listings") {
             listingsStore.fetchMyListings(page.value);
+        } else if (route.name?.toString().includes("profile")) {
+            listingsStore.fetchUserListings(
+                page.value,
+                Number(route.params.id as string),
+            );
         } else {
             listingsStore.fetchAllListings(page.value);
         }

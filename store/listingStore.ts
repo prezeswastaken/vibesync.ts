@@ -28,7 +28,21 @@ export const useListingStore = defineStore(
 			const response = await useApiFetch<{
 				data: Listing[];
 				meta: { total: number };
-			}>(`/api/listings/?page=${page}${currencyParam}`);
+			}>(`/api/listings?page=${page}${currencyParam}`);
+			listings.value = response.data.value?.data || [];
+			totalListings.value = response.data.value?.meta.total || 10;
+			return response;
+		}
+
+		async function fetchUserListings(page: number = 1, userID: number) {
+			currentPage.value = page;
+			const currencyParam = currentCurrencyId.value
+				? `&currency_id=${currentCurrencyId.value}`
+				: "";
+			const response = await useApiFetch<{
+				data: Listing[];
+				meta: { total: number };
+			}>(`/api/users/${userID}/listings?page=${page}${currencyParam}`);
 			listings.value = response.data.value?.data || [];
 			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
@@ -39,7 +53,7 @@ export const useListingStore = defineStore(
 			const response = await useApiFetch<{
 				data: Listing[];
 				meta: { total: number };
-			}>(`/api/my/listings/?page=${page}`);
+			}>(`/api/my/listings?page=${page}`);
 			listings.value = response.data.value?.data || [];
 			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
@@ -62,6 +76,7 @@ export const useListingStore = defineStore(
 			fetchAllListings,
 			fetchMyListings,
 			fetchListingByID,
+			fetchUserListings,
 			listings,
 			currentListing,
 			deleteListing,
