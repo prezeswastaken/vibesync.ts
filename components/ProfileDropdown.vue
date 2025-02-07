@@ -26,13 +26,6 @@ const items = computed(() => [
     ],
     [
         {
-            label: t("profile"),
-            icon: "i-heroicons-cog-8-tooth",
-            click: () => navigateTo("/profile"),
-        },
-    ],
-    [
-        {
             label: t("yourListings"),
             icon: "i-heroicons-book-open",
             click: () => navigateTo("/my-listings"),

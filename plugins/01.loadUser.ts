@@ -28,6 +28,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 				userStore.user?.name,
 				"with email:",
 				userStore.user?.email,
+				"is admin:",
+				userStore.user?.is_admin,
 			);
 		} catch (e) {
 			userStore.setAccessToken(null);

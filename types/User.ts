@@ -6,6 +6,7 @@ export type UserType = {
 	avatar_url: string | null;
 	spotify_id: string | null;
 	google_id: string | null;
+	is_admin: boolean;
 };
 
 export type RegisterFormType = {
