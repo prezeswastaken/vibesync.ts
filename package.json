@@ -10,12 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^1.4.1",
     "@nuxt/ui": "^2.18.4",
-    "@nuxtjs/i18n": "latest",
+    "@nuxtjs/i18n": "^8.0.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
-    "@pinia/nuxt": "latest",
-    "nuxt": "^3.12.4"
+    "@pinia/nuxt": "^0.5.0",
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.1",
+    "nuxt": "^3.13.1"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
