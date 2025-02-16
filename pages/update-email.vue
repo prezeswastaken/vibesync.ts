@@ -71,7 +71,6 @@ async function handleSubmitEmail() {
                     placeholder="newEmail@example.com"
                     type="email"
                     icon="i-heroicons-envelope"
-                    autofocus
                 />
             </UFormGroup>
             <UButton

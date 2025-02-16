@@ -54,7 +54,7 @@ async function handleDelete() {
             >
                 <div class="flex gap-2 justify-between items-center">
                     <div class="flex gap-2 items-center">
-                        <UIcon name="i-heroicons-envelope" />
+                        <UIcon name="i-heroicons-user" />
                         <p>{{ user.name }}</p>
                     </div>
                     <div class="flex flex-col gap-1 items-end">
@@ -88,7 +88,7 @@ async function handleDelete() {
                     </div>
                 </div>
                 <div class="flex gap-2 items-center">
-                    <UIcon name="i-heroicons-user" />
+                    <UIcon name="i-heroicons-envelope" />
                     <p>{{ user.email }}</p>
                 </div>
             </NuxtLink>

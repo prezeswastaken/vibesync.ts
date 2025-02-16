@@ -75,6 +75,7 @@ async function handleLikeOrDislike(isLike: boolean) {
                         listing.author_avatar_url ??
                         'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'
                     "
+                    alt="Avatar url"
                     class="w-8 h-8 rounded-full"
                 />
             </div>
