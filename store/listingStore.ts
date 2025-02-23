@@ -20,15 +20,18 @@ export const useListingStore = defineStore(
 
 		const currentCurrencyId = ref<number | null>(null);
 
+		const sortByLikes = ref<null | string>(null);
+
 		async function fetchAllListings(page: number = 1) {
 			currentPage.value = page;
 			const currencyParam = currentCurrencyId.value
 				? `&currency_id=${currentCurrencyId.value}`
 				: "";
+			const sortByLikesParam = getSortBylikesParam();
 			const response = await useApiFetch<{
 				data: Listing[];
 				meta: { total: number };
-			}>(`/api/listings?page=${page}${currencyParam}`);
+			}>(`/api/listings?page=${page}${currencyParam}${sortByLikesParam}`);
 			listings.value = response.data.value?.data || [];
 			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
@@ -39,10 +42,13 @@ export const useListingStore = defineStore(
 			const currencyParam = currentCurrencyId.value
 				? `&currency_id=${currentCurrencyId.value}`
 				: "";
+			const sortByLikesParam = getSortBylikesParam();
 			const response = await useApiFetch<{
 				data: Listing[];
 				meta: { total: number };
-			}>(`/api/users/${userID}/listings?page=${page}${currencyParam}`);
+			}>(
+				`/api/users/${userID}/listings?page=${page}${currencyParam}${sortByLikesParam}`,
+			);
 			listings.value = response.data.value?.data || [];
 			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
@@ -50,10 +56,11 @@ export const useListingStore = defineStore(
 
 		async function fetchMyListings(page: number = 1) {
 			currentPage.value = page;
+			const sortByLikesParam = getSortBylikesParam();
 			const response = await useApiFetch<{
 				data: Listing[];
 				meta: { total: number };
-			}>(`/api/my/listings?page=${page}`);
+			}>(`/api/my/listings?page=${page}${sortByLikesParam}`);
 			listings.value = response.data.value?.data || [];
 			totalListings.value = response.data.value?.meta.total || 10;
 			return response;
@@ -72,6 +79,16 @@ export const useListingStore = defineStore(
 			return response;
 		}
 
+		function getSortBylikesParam(): string {
+			if (sortByLikes.value === "asc") {
+				return "&sortByLikes=asc";
+			} else if (sortByLikes.value === "desc") {
+				return "&sortByLikes=desc";
+			} else {
+				return "";
+			}
+		}
+
 		return {
 			fetchAllListings,
 			fetchMyListings,
@@ -83,6 +100,7 @@ export const useListingStore = defineStore(
 			totalListings,
 			currentPage,
 			currentCurrencyId,
+			sortByLikes,
 		};
 	},
 
