@@ -20,7 +20,6 @@ const unchangedOption = computed(() => {
 });
 
 const options = [
-    unchangedOption,
     { symbol: "⬆️", value: "asc" },
     { symbol: "⬇️", value: "desc" },
 ];
