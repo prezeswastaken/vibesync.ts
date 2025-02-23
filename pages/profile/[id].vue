@@ -48,6 +48,9 @@ async function fetchUser() {
             {{ $t("profile") }} {{ ` ${user?.name}` }}
         </h1>
         <CurrencySwitcher />
+        <SorterPanel
+            @update="() => listingStore.fetchUserListings(1, userID)"
+        />
         <ListingList :listings="listingStore.listings" />
     </div>
 </template>

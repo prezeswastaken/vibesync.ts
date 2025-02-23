@@ -31,6 +31,7 @@ console.log(userStore.accessToken);
             {{ $t("home") }}
         </h1>
         <CurrencySwitcher />
+        <SorterPanel @update="() => listingStore.fetchAllListings()" />
         <ListingList :listings="listingStore.listings" />
     </div>
 </template>

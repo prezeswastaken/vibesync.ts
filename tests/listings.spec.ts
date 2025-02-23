@@ -42,7 +42,7 @@ test.describe("Listings Page", () => {
 		);
 	});
 
-	test("should display listings page title", async ({ page }) => {
+	test("should display heading", async ({ page }) => {
 		const heading = page.getByRole("heading", { name: "Listings" });
 		await heading.waitFor({ state: "visible" });
 		await expect(heading).toBeVisible();
